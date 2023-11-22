@@ -1,6 +1,6 @@
 // Home.js
 import React from 'react';
-import './home.css';
+import './component/home.css';
 
 
 function Home() {
