@@ -19,10 +19,10 @@ function Login() {
                 email,password
             })
             .then(res=>{
-                if(res.data=="exist"){
-                    history("/Home",{state:{id:email}})
+                if(res.data === "exist"){
+                    history("/",{state:{id:email}})
                 }
-                else if(res.data=="notexist"){
+                else if(res.data === "notexist"){
                     alert("User have not sign up")
                 }
             })
