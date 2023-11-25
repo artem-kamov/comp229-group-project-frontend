@@ -6,7 +6,7 @@ function Navbar() {
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">a
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">
-                <img src="/images/upDog.png" alt="Logo" style={{ height: '30px', marginRight: '10px'}} />
+                    <img src="upDog.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
                     {/* TRVL<i className="fab fa-typo3" /> */}
                 </Link>
                 <button
@@ -23,26 +23,32 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link to="/Home" className="nav-link active">
-                            <i class="fa-solid fa-house-user"></i> Home
+                            <Link to="/" className="nav-link active">
+                                <i class="fa-solid fa-house-user"></i> Home
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/Login" className="nav-link">
+                            <Link to="/Signin" className="nav-link">
                                 Login
                             </Link>
                         </li>
-                        {/* <li className="nav-item">
-                            <Link to="/link2" className="nav-link">
-                                
+                        <li className="nav-item dropdown">
+                            <Link className='nav-link dropdown-toggle' to="#" role="button" data-bs-toggle="dropdown">
+                                <i className="fa-solid fa-barcode"></i> Products
                             </Link>
-                        </li> */}
-                        
-                        {/* <li className="nav-item">
-                            <Link to="/disabled" className="nav-link disabled" aria-disabled="true">
-                                Disabled
-                            </Link>
-                        </li> */}
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="dropdown-item" to="/products/list">
+                                        <i className="fa-regular fa-rectangle-list"></i> Products List
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/products/add">
+                                        <i className="fa-solid fa-square-plus"></i> Add a new Product
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li >
                     </ul>
                 </div>
             </div>
