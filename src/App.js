@@ -10,6 +10,7 @@ import AddProduct from './component/product/AddProduct';
 import EditProduct from './component/product/EditProduct';
 import ListProducts from './component/product/ListProducts';
 import NoPage from './pages/NoPage';
+import Registration from './component/auth/Register';
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} /> 
-          <Route path="/Signup" element={<Signup />}/>
-          <Route path="/Signin" element={<Signin />}/>
+          <Route path="/users/register" element={<Registration />}/>
+          <Route path="/users/signin" element={<Signin />}/>
           <Route path="/products/add" element={<AddProduct />}></Route>
           <Route path="/products/edit/:id" element={<EditProduct />}></Route>
           <Route path="/products/list" element={<ListProducts />}></Route>

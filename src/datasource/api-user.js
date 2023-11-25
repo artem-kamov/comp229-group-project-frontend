@@ -22,4 +22,28 @@ const signin = async (user) => {
     }
 };
 
-export { signin };
+const register = async (user) => {
+    try {
+        const response = await fetch(apiUrl + '/users/create/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorResponse = await response.text();
+            console.error('Registration failed. Server response:', errorResponse);
+            throw new Error('Failed to sign up');
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error('Something went wrong during registration');
+    }
+};
+
+export { signin, register };
