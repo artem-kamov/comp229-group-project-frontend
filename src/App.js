@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Footer from './component/Footer';
 import './App.css';
 import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
+import Signin from "./component/auth/Signin";
 import AddProduct from './component/product/AddProduct';
 import EditProduct from './component/product/EditProduct';
 import ListProducts from './component/product/ListProducts';
