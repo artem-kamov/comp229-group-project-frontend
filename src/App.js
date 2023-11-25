@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Footer from './component/Footer';
 import './App.css';
 import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Signin from "./pages/Signin";
 import AddProduct from './component/product/AddProduct';
 import EditProduct from './component/product/EditProduct';
 import ListProducts from './component/product/ListProducts';
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} /> 
           <Route path="/Signup" element={<Signup />}/>
-          <Route path="/Login" element={<Login />}/>
+          <Route path="/Signin" element={<Signin />}/>
           <Route path="/products/add" element={<AddProduct />}></Route>
           <Route path="/products/edit/:id" element={<EditProduct />}></Route>
           <Route path="/products/list" element={<ListProducts />}></Route>
