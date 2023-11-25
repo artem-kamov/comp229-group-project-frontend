@@ -26,6 +26,8 @@ const AddProduct = () => {
             image: product.image,
             category: product.category,
             postedAt: new Date(Date.now()).toUTCString(),
+            owner: "655016da7569dcec6baa7951",
+            
         }
 
         create(newProduct).then(data => {
