@@ -34,11 +34,12 @@ const create = async (product) => {
 
 // const read = async (id) => {
 //     try {
-//         let response = await fetch(apiURL + '/inventory/get/' + id, {
+//         let response = await fetch(apiURL + '/product/get/' + id, {
 //             method: 'GET',
 //             headers: {
 //                 'Accept': 'application/json',
 //                 'Content-Type': 'application/json'
+//                 //'Authorization': 'Bearer ' + getToken()
 //             }
 //         })
 //         return await response.json()
