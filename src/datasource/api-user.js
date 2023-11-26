@@ -1,39 +1,8 @@
-let apiURL = process.env.REACT_APP_APIURL;
+let apiUrl = process.env.REACT_APP_APIURL;
 
-const signin = async (credentials) => {
+const signin = async (user) => {
     try {
-        let response = await fetch(apiURL + '/user/signin', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
-        return await response.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const list = async () => {
-    try {
-        let response = await fetch(apiURL + '/user/list', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        return await response.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const create = async (user) => {
-    try {
-        let response = await fetch(apiURL + '/user/create', {
+        const response = await fetch(apiUrl + '/users/signin/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -41,71 +10,40 @@ const create = async (user) => {
             },
             body: JSON.stringify(user)
         });
-        return await response.json();
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Failed to sign in');
+        }
     } catch (err) {
-        console.log(err);
+        console.error(err);
+        throw new Error('Something went wrong during sign in');
     }
 };
 
-const read = async (userId) => {
+const register = async (user) => {
     try {
-        let response = await fetch(apiURL + '/user/get/' + userId, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        return await response.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const update = async (userId, updatedUser) => {
-    try {
-        let response = await fetch(apiURL + '/user/edit/' + userId, {
-            method: 'PUT',
+        const response = await fetch(apiUrl + '/users/create/', {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedUser)
+            body: JSON.stringify(user)
         });
-        return await response.json();
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorResponse = await response.text();
+            console.error('Registration failed. Server response:', errorResponse);
+            throw new Error('Failed to sign up');
+        }
     } catch (err) {
-        console.log(err);
+        console.error(err);
+        throw new Error('Something went wrong during registration');
     }
 };
 
-const remove = async (userId) => {
-    try {
-        let response = await fetch(apiURL + '/user/delete/' + userId, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        return await response.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const setAdmin = async (userId) => {
-    try {
-        let response = await fetch(apiURL + '/user/setadmin/' + userId, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        return await response.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-export { signin, list, create, read, update, remove, setAdmin };
+export { signin, register };

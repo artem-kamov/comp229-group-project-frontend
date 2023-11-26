@@ -10,7 +10,6 @@ const ListProducts = () => {
 
     useEffect(() => {
         list().then((data) => {
-            console.log('esta es la data', data)
             if (data.success) {
                 setProductsList(data.products);
                 setIsLoading(false);
@@ -44,7 +43,6 @@ const ListProducts = () => {
                  {!isLoading && 
                  <table className="table table-bordered table-striped table-hover">
                      <thead>
-                         {/* -- Header Row-- */}
                          <tr>
                              <th className="text-center">Name</th>
                              <th className="text-center">Price</th>
@@ -55,10 +53,8 @@ const ListProducts = () => {
                          </tr>
                      </thead>
                      <tbody>
-                         {/* -- Repeatable Template Row -- */}
                          {productsList.map((product, i) => {
                              return (<tr key={i}>
-
                                  <td className="text-center"> {product.title|| ''} </td>
                                  <td className="text-center"> {product.currency} {product.price} </td>
                                  <td className="text-center"> {product.category || ''} </td>
