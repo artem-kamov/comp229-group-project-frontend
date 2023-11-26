@@ -1,3 +1,5 @@
+import { getToken } from "../component/auth/auth-helper"
+
 let apiURL = process.env.REACT_APP_APIURL
 
 const list = async () => {
@@ -22,7 +24,7 @@ const create = async (product) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + getToken()
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify(product)
         })
@@ -38,8 +40,8 @@ const read = async (id) => {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                //'Authorization': 'Bearer ' + getToken()
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             }
         })
         return await response.json()
@@ -55,7 +57,7 @@ const update = async (id, item) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + getToken()
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify(item)
         })
@@ -72,7 +74,7 @@ const remove = async (id) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + getToken()
+                'Authorization': 'Bearer ' + getToken()
             }
         })
         return await response.json()
