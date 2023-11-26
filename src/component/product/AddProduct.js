@@ -17,7 +17,6 @@ const AddProduct = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let newProduct = {
-            // id: product.id,
             title: product.title,
             description: product.description,
             price: product.price,
@@ -27,7 +26,6 @@ const AddProduct = () => {
             category: product.category,
             postedAt: new Date(Date.now()).toUTCString(),
             owner: "655016da7569dcec6baa7951",
-            
         }
 
         create(newProduct).then(data => {
@@ -52,10 +50,6 @@ const AddProduct = () => {
                     <h1>Add a new product</h1>
                     <form onSubmit={handleSubmit} className="form">
                         <div className="form-group">
-                            {/* <input type="hidden"
-                                name="id"
-                                value={product.id || ''}>
-                            </input> */}
                             <label htmlFor="itemTextField">Product Name</label>
                             <input type="text" className="form-control"
                                 id="titleTextField"

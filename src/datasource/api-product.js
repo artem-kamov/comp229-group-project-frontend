@@ -32,21 +32,21 @@ const create = async (product) => {
     }
 }
 
-// const read = async (id) => {
-//     try {
-//         let response = await fetch(apiURL + '/product/get/' + id, {
-//             method: 'GET',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json'
-//                 //'Authorization': 'Bearer ' + getToken()
-//             }
-//         })
-//         return await response.json()
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
+const read = async (id) => {
+    try {
+        let response = await fetch(apiURL + '/product/get/' + id, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                //'Authorization': 'Bearer ' + getToken()
+            }
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 const update = async (id, item) => {
     try {
@@ -81,4 +81,4 @@ const remove = async (id) => {
     }
 }
 
-export { list, create, update, remove } /* read */ 
+export { list, create, read, update, remove }

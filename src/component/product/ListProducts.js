@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { list } from "../../datasource/api-product";
+import { list, remove } from "../../datasource/api-product";
 
 const ListProducts = () => {
 
@@ -21,7 +21,17 @@ const ListProducts = () => {
     }, []);
 
     const handleRemove = (id) => {
-
+     if(window.confirm('Are you sure you want to delete this item?')){
+            remove(id).then(data => {
+                if (data && data.success) {
+                    const newList = productsList.filter((product) => product.id !== id);
+                    setProductsList(newList);
+                }
+            }).catch(err => {
+                alert(err.message);
+                console.log(err)
+            });
+        };
     };
 
     return (
