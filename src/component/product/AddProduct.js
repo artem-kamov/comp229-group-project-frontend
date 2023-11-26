@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import ProductModel from "../../datasource/productModel";
+import { create } from "../../datasource/api-product";
 
 const AddProduct = () => {
 
@@ -16,7 +17,6 @@ const AddProduct = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let newProduct = {
-            id: product.id,
             title: product.title,
             description: product.description,
             price: product.price,
@@ -27,7 +27,19 @@ const AddProduct = () => {
             postedAt: new Date(Date.now()).toUTCString(),
         }
 
-        navigate("/products/list");
+        create(newProduct).then(data => {
+            if (data && data.result.id) {
+                alert("Item added with the id " + data.id);
+                navigate("/products/list");
+            }
+            else {
+                alert(data.message);
+            }
+        }).catch(err => {
+            alert(err.message);
+            console.log(err)
+        });
+
     };
 
     return (
@@ -37,10 +49,6 @@ const AddProduct = () => {
                     <h1>Add a new product</h1>
                     <form onSubmit={handleSubmit} className="form">
                         <div className="form-group">
-                            <input type="hidden"
-                                name="id"
-                                value={product.id || ''}>
-                            </input>
                             <label htmlFor="itemTextField">Product Name</label>
                             <input type="text" className="form-control"
                                 id="titleTextField"
@@ -60,7 +68,7 @@ const AddProduct = () => {
                                 name="description"
                                 value={product.description || ''}
                                 onChange={handleChange}
-                                >
+                            >
                             </input>
                         </div>
                         <br />
@@ -107,7 +115,7 @@ const AddProduct = () => {
                                 name="image"
                                 value={product.image || ''}
                                 onChange={handleChange}
-                                required>
+                            >
                             </input>
                         </div>
                         <div className="form-group">

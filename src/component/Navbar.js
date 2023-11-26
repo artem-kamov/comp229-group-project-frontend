@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link , useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { isAuthenticated, getUsername, clearJWT } from "./auth/auth-helper";
 
 const Navbar = () => {
 
     const location = useLocation();
-    
+
     const signoutClick = () => {
-      clearJWT();
+        clearJWT();
     }
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">a
@@ -57,9 +57,9 @@ const Navbar = () => {
                             </Link>
                         </li >
                         <li className="nav-item">
-                            <Link className="nav-link" to="/users/register">
+                            {!isAuthenticated() && <Link className="nav-link" to="/users/register">
                                 <i className="fas fa-user"></i> Register
-                            </Link>
+                            </Link>}
                         </li >
                         <li className="nav-item">
                             {!isAuthenticated() &&

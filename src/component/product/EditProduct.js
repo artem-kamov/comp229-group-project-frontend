@@ -1,12 +1,36 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ProductModel from "../../datasource/productModel";
+import { read, update } from "../../datasource/api-product";
 
 const EditProduct = () => {
 
     let navigate = useNavigate();
     let { id } = useParams();
-    let [product, setProduct] = useState();
+    let [product, setProduct] = useState(new ProductModel());
 
+
+    useEffect(() => {
+        read(id).then((data) => {
+            if (data) {
+                setProduct(new ProductModel(
+                    data.selectedProduct[0].id,
+                    data.selectedProduct[0].title,
+                    data.selectedProduct[0].description,
+                    data.selectedProduct[0].price,
+                    data.selectedProduct[0].currency,
+                    data.selectedProduct[0].location,
+                    data.selectedProduct[0].image,
+                    data.selectedProduct[0].category,
+                    data.selectedProduct[0].postedAt,
+                    data.selectedProduct[0].owner,
+                    ));
+            }
+        }).catch(err => {
+            alert(err.message);
+            console.log(err)
+        });
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -15,109 +39,120 @@ const EditProduct = () => {
 
 
     const handleSubmit = (event) => {
+        event.preventDefault();
+        let updatedProduct = {
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            currency: product.currency,
+            location: product.location,
+            image: product.image,
+            category: product.category,
+            postedAt: new Date(Date.now()).toUTCString(),
+            owner: "655016da7569dcec6baa7951",
+        }
+
+        update(product.id, updatedProduct).then(data => {
+            if (data && data.success) {
+                alert(data.message);
+                navigate("/products/list");
+            }
+            else {
+                alert(data.message);
+            }
+        }).catch(err => {
+            alert(err.message);
+            console.log(err)
+        });
     };
 
     return (
         <div className="container" style={{ paddingTop: 80 }}>
             <div className="row">
                 <div className="offset-md-3 col-md-6">
-                    <h1>Edit an item</h1>
-
                     <form onSubmit={handleSubmit} className="form">
                         <div className="form-group">
-                            <input type="hidden"
-                                name="id"
-                                value={product.id || ''}>
-                            </input>
-                            <label htmlFor="itemTextField">Item Name</label>
+                            <label htmlFor="itemTextField">Product Name</label>
                             <input type="text" className="form-control"
-                                id="itemTextField"
-                                placeholder="Enter the Item Name"
-                                name="item"
-                                value={product.item || ''}
+                                id="titleTextField"
+                                placeholder="Enter the title for the product"
+                                name="title"
+                                value={product.title || ''}
                                 onChange={handleChange}
                                 required>
                             </input>
                         </div>
                         <br />
                         <div className="form-group">
-                            <label htmlFor="QtyTextField">Quantity</label>
+                            <label htmlFor="QtyTextField">Description</label>
+                            <input type="text" className="form-control"
+                                id="descriptionTextField"
+                                placeholder="Enter short description here"
+                                name="description"
+                                value={product.description || ''}
+                                onChange={handleChange}
+                            >
+                            </input>
+                        </div>
+                        <br />
+                        <div className="form-group">
+                            <label htmlFor="PriceTextField">Price</label>
                             <input type="number" className="form-control"
-                                id="QtyTextField"
-                                placeholder="00"
-                                name="qty"
-                                value={product.qty || 0}
+                                id="PriceTextField"
+                                placeholder="$0"
+                                name="price"
+                                value={product.price || 0}
                                 onChange={handleChange}
                                 required>
                             </input>
                         </div>
                         <br />
                         <div className="form-group">
-                            <label htmlFor="statusTextField">Status</label>
+                            <label htmlFor="currencyTextField">Currency</label>
                             <input type="text" className="form-control"
-                                id="statusTextField"
-                                placeholder="Enter a status"
-                                name="status"
-                                value={product.status || ''}
-                                onChange={handleChange}>
+                                id="currencyTextField"
+                                placeholder="Enter a currency"
+                                name="currency"
+                                value={product.currency || ''}
+                                onChange={handleChange}
+                                required>
                             </input>
                         </div>
                         <br />
-                        <div className="card">
-                            <div className="card-header">Size</div>
-                            <div className="card-body">
-                                <div className="form-group">
-                                    <label htmlFor="hightTextField">Hight</label>
-                                    <input type="number" step="0.01"
-                                        className="form-control"
-                                        id="hightTextField"
-                                        placeholder="0.00"
-                                        name="size_h"
-                                        value={product.size_h || 0}
-                                        required
-                                        onChange={handleChange}>
-                                    </input>
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="widthTextField">Width</label>
-                                    <input type="number" step="0.01"
-                                        className="form-control"
-                                        id="widthTextField"
-                                        placeholder="0.00"
-                                        name="size_w"
-                                        value={product.size_w || 0}
-                                        onChange={handleChange}
-                                        required>
-                                    </input>
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="uomTextField">UOM</label>
-                                    <input type="text" className="form-control"
-                                        id="uomTextField"
-                                        placeholder="cm"
-                                        name="size_uom"
-                                        value={product.size_uom || ''}
-                                        onChange={handleChange}
-                                        required>
-                                    </input>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
                         <div className="form-group">
-                            <label htmlFor="tagTextArea">Tags <span className="text-muted">[use , to separate tags]</span></label>
-                            <textarea type="text" className="form-control"
-                                id="tagTextArea"
-                                placeholder="Enter the tags of the item"
-                                name="tags"
-                                value={product.tags || ''}
-                                onChange={handleChange}>
-                            </textarea>
+                            <label htmlFor="locationTextField">Location</label>
+                            <input type="text" className="form-control"
+                                id="locationTextField"
+                                placeholder="Enter a location"
+                                name="location"
+                                value={product.location || ''}
+                                onChange={handleChange}
+                                required>
+                            </input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="imageTextField">Image</label>
+                            <input type="text" className="form-control"
+                                id="imageTextField"
+                                placeholder="Enter a image"
+                                name="image"
+                                value={product.image || ''}
+                                onChange={handleChange}
+                            >
+                            </input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="categoryTextField">Category</label>
+                            <input type="text" className="form-control"
+                                id="categoryTextField"
+                                placeholder="Enter a category"
+                                name="category"
+                                value={product.category || ''}
+                                onChange={handleChange}
+                                required>
+                            </input>
                         </div>
                         <br />
-
                         <button className="btn btn-primary" type="submit">
                             <i className="fas fa-edit"></i>
                             Submit
