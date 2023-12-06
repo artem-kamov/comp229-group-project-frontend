@@ -1,0 +1,38 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  margin-bottom: 10px;
+}
+
+.already-have-account {
+  margin-top: 20px;
+}
+
+.already-have-account p {
+  margin-bottom: 10px;
+}
+
+.already-have-account-button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+.center-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px; 
+}

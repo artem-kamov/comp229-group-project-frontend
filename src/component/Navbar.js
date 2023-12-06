@@ -1,6 +1,11 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faBarcode, faUser, faSquarePlus, faHouseUser, faRightToBracket, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRegularRectangleList } from '@fortawesome/free-regular-svg-icons';
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { isAuthenticated, getUsername, clearJWT } from "./auth/auth-helper";
+
 
 const Navbar = () => {
 
@@ -30,9 +35,9 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link to="/" className="nav-link active">
-                                <i class="fa-solid fa-house-user"></i> Home
-                            </Link>
+                        <Link to="/" className="nav-link active">
+                        <FontAwesomeIcon icon={faHome} /> Home
+                        </Link> 
                         </li>
                         <li className="nav-item dropdown">
                             <Link className='nav-link dropdown-toggle' to="#" role="button" data-bs-toggle="dropdown">

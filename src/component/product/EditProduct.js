@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ProductModel from "../../datasource/productModel";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { read, update } from "../../datasource/api-product";
+import ProductModel from "../../datasource/productModel";
 
 const EditProduct = () => {
-
     let navigate = useNavigate();
     let { id } = useParams();
     let [product, setProduct] = useState(new ProductModel());
-
 
     useEffect(() => {
         read(id).then((data) => {
@@ -24,7 +24,7 @@ const EditProduct = () => {
                     data.selectedProduct[0].category,
                     data.selectedProduct[0].postedAt,
                     data.selectedProduct[0].owner,
-                    ));
+                ));
             }
         }).catch(err => {
             alert(err.message);
@@ -36,7 +36,6 @@ const EditProduct = () => {
         const { name, value } = event.target;
         setProduct((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -134,7 +133,7 @@ const EditProduct = () => {
                             <label htmlFor="imageTextField">Image</label>
                             <input type="text" className="form-control"
                                 id="imageTextField"
-                                placeholder="Enter a image"
+                                placeholder="Enter an image"
                                 name="image"
                                 value={product.image || ''}
                                 onChange={handleChange}
@@ -154,18 +153,17 @@ const EditProduct = () => {
                         </div>
                         <br />
                         <button className="btn btn-primary" type="submit">
-                            <i className="fas fa-edit"></i>
-                            Submit
-                        </button>
+    <FontAwesomeIcon icon={faEdit} />
+    Submit
+</button>
 
-                        <Link href="#" to="/products/list" className="btn btn-warning">
-                            <i className="fas fa-undo"></i>
-                            Cancel
-                        </Link>
+<Link href="#" to="/products/list" className="btn btn-warning">
+    <FontAwesomeIcon icon={faUndo} />
+    Cancel
+</Link>
 
                     </form>
                 </div>
-
             </div>
         </div>
     );
