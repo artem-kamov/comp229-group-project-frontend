@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { signin } from "../../datasource/api-user.js";
-import { authenticate } from './auth-helper.js';
+import { authenticate } from '../auth/auth-helper.js';
 
 const Signin = () => {
   const { state } = useLocation();
