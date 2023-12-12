@@ -35,9 +35,9 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                        <Link to="/" className="nav-link active">
-                        <FontAwesomeIcon icon={faHome} /> Home
-                        </Link> 
+                            <Link to="/" className="nav-link active">
+                                <FontAwesomeIcon icon={faHome} /> Home
+                            </Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className='nav-link dropdown-toggle' to="#" role="button" data-bs-toggle="dropdown">
@@ -56,11 +56,32 @@ const Navbar = () => {
                                 </li>
                             </ul>
                         </li >
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/users/list">
-                                <i className="fas fa-user"></i> Users
+
+
+                        <li className="nav-item dropdown">
+                            <Link className='nav-link dropdown-toggle' to="#" role="button" data-bs-toggle="dropdown">
+                                <i className="fa-solid fa-barcode"></i> Account
                             </Link>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="dropdown-item" to="/users/list">
+                                        <i className="fa-solid fa-square-plus"></i> Edit Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    {!isAuthenticated() &&
+                                        <Link className="dropdown-item" to="/users/signin">
+                                            <i className="fa-solid fa-square-plus"></i> Signin
+                                        </Link>}
+                                    {isAuthenticated() &&
+                                        <Link className="dropdown-item" to="/" onClick={signoutClick}>
+                                            <i className="fa-solid fa-square-plus"></i> Sign-out ({getUsername()})
+                                        </Link>}
+                                </li>
+                            </ul>
                         </li >
+
+
                         <li className="nav-item">
                             {!isAuthenticated() && <Link className="nav-link" to="/users/register">
                                 <i className="fas fa-user"></i> Register

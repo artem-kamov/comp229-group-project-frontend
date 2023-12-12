@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../datasource/api-user";
+import UserModel from "../../datasource/userModel";
 
 const Registration = () => {
   const navigate = useNavigate();
-
   const [errorMsg, setErrorMsg] = useState('');
   const [user, setUser] = useState({
     firstName: '',
