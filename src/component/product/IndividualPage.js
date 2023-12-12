@@ -7,13 +7,24 @@ import { postQuestion } from "../../datasource/api-message";
 const IndividualProduct = () => {
   let [individualProduct, setIndividualProduct] = useState([]);
   let [questionContent, setQuestionContent] = useState(null);
+  let [questionArray, setQuestionArray] = useState([]);
   // let [isLoading, setIsLoading] = useState(true);
   let { id } = useParams();
 
   useEffect(() => {
     listOne(id).then((data) => {
       console.log('product', data);
-      setIndividualProduct(data.selectedProduct[0])
+      setIndividualProduct(data.selectedProduct)
+    }).catch(err => {
+      alert(err.message);
+      console.log(err);
+    });
+  }, []);
+  
+
+  useEffect(() => {
+    listOne(id).then((data) => {
+      setIndividualProduct(data.selectedProduct)
     }).catch(err => {
       alert(err.message);
       console.log(err);
@@ -38,8 +49,8 @@ const IndividualProduct = () => {
       <div className="row">
         <div className="col-md-6">
           {individualProduct.image
-            ? <img src={individualProduct.image} alt="N" className="img-fluid" />
-            : <img src={"https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"} alt="N" className="img-fluid" />}
+            ? <img src={individualProduct.image} alt="Unavailable" className="img-fluid" />
+            : <img src={"https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"} alt="NoImage" className="img-fluid" />}
 
         </div>
         <div className="col-md-6">
@@ -75,6 +86,13 @@ const IndividualProduct = () => {
           Submit
         </button>
       </div>
+      <>
+      <div className="row">
+        {questionArray.map((elem) => { 
+          return elem
+        })}
+      </div>
+      </>
     </main>
   );
 };
