@@ -5,7 +5,9 @@ const authenticate = (token, cb)=>{
     sessionStorage.setItem('token', token);
 
     let decoded = jwtDecode(token);
+
     sessionStorage.setItem('username', decoded.username)
+    sessionStorage.setItem('id', decoded.id)
   }
   cb();
 }

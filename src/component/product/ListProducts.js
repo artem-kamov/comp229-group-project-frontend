@@ -74,7 +74,7 @@ const ListProducts = () => {
                                             <td className="text-center">{product.currency} {product.price}</td>
                                             <td className="text-center">{product.category || ''}</td>
                                             <td className="text-center">{product.location || ''}</td>
-                                            <td className="text-center"><img src={product.image} alt="No available" /></td>
+                                            <td className="text-center"><img src={product.image} alt="No available" width={50}/></td>
                                             <td className="text-center">
                                                 <Link className="btn bg-primary btn-primary btn-sm" to={'/products/edit/' + product.id}>
                                                     <FontAwesomeIcon icon={faPencilAlt} />
