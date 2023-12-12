@@ -8,7 +8,9 @@ const IndividualProduct = () => {
   let [individualProduct, setIndividualProduct] = useState([]);
   let [questionContent, setQuestionContent] = useState(null);
   let [questionArray, setQuestionArray] = useState([]);
-  let [updateMessages, setUpdateMessages] = useState(false)
+  let [updateMessages, setUpdateMessages] = useState(false);
+  let [answerContent, setAnswerContent] = useState('');
+  let [answerTextboxVisible, setAnswerTextboxVisible] = useState(0);
   let { id } = useParams();
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const IndividualProduct = () => {
   useEffect(() => {
     findThreadByProductId(id).then((data) => {
       setQuestionArray(data.messages)
+      setQuestionContent('')
     }).catch(err => {
       alert(err.message);
       console.log(err);
@@ -31,8 +34,8 @@ const IndividualProduct = () => {
   }, [updateMessages, id]);
 
   const submitQuestion = async () => {
-    const id = localStorage.getItem('id')
-    const newMessage = new MessageModel('question', questionContent, id, individualProduct.id) //author id missing
+    const loggedUserId = sessionStorage.getItem('id')
+    const newMessage = new MessageModel('question', questionContent, loggedUserId, individualProduct.id)
 
     try {
       const response = await postQuestion(newMessage);
@@ -48,13 +51,21 @@ const IndividualProduct = () => {
   }
 
   const submitAnswer = async (questionId) => {
-    const id = localStorage.getItem('id');
-    const newMessage = new MessageModel('answer', questionContent, id, null, questionId)
+    const loggedUserId = sessionStorage.getItem('id')
+    if (!loggedUserId || loggedUserId !== individualProduct.owner) {
+      alert('You need to be signed in as the owner of the product to answer questions.')
+      setAnswerTextboxVisible(0)
+      setAnswerContent('')
+      return;
+    }
+
+    const newMessage = new MessageModel('answer', answerContent, loggedUserId, null, questionId)
 
     try {
       const response = await postAnswer(newMessage);
       if (response.success) {
         setUpdateMessages(!updateMessages);
+        setAnswerContent('')
       }
 
 
@@ -104,29 +115,48 @@ const IndividualProduct = () => {
       <>
 
         {questionArray.map((elem, index) => {
-          if (elem.answerId) {
+          if (elem.answers) {
             return (
               <>
-
                 <div className="col-md-6 ps-3 pt-3 pb-3 text-start" style={{ fontWeight: 'bold' }}>
                   {index + 1 + '. ' + elem.content}
                 </div>
-                <div className="col-md-6 ps-5 pt-1 pb-1 text-start" >
-                  {index + 1 + '. ' + elem.content}
+                <div className="col-md-6 ps-5 pt-1 pb-2 text-start" >
+                  {'A: ' + elem.answers.content}
                 </div>
               </>)
           } else {
             return (
-              <div className="row">
-                <div className="col-md-6 ps-3 pt-3 pb-3 text-start" style={{ fontWeight: 'bold' }}>
-                  {index + 1 + '. ' + elem.content}
+              <>
+                <div className="row">
+                  <div className="col-md-6 ps-3 pt-3 pb-3 text-start" style={{ fontWeight: 'bold' }}>
+                    {index + 1 + '. ' + elem.content}
+                  </div>
+                  <div className="col-md-6 ps-3 pt-3 pb-3 text-end" style={{ fontWeight: 'bold' }}>
+                    <button className="btn btn-primary" type="submit" style={{ marginRight: "10px" }} onClick={() => setAnswerTextboxVisible(index + 1)}>
+                      <i className="fas fa-edit"></i> Answer this question
+                    </button>
+                  </div>
+
                 </div>
-                <div className="col-md-6 ps-3 pt-3 pb-3 text-end" style={{ fontWeight: 'bold' }}>
-                  <button className="btn btn-primary" type="submit" style={{ marginRight: "10px" }} onClick={() => submitAnswer(elem.id)}>
-                    <i className="fas fa-edit"></i> Answer this question
-                  </button>
-                </div>
-              </div>)
+                {answerTextboxVisible === (index + 1) && <div className="row">
+                  <div className="input-group mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Write an answer"
+                      aria-label="Recipient's username"
+                      aria-describedby="button-addon2"
+                      value={answerContent}
+                      onChange={(e) => setAnswerContent(e.target.value)}
+                    />
+                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={() => submitAnswer(elem._id)}>
+                      Submit
+                    </button>
+                  </div>
+                </div>}
+              </>
+            )
           }
 
 
