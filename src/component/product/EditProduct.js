@@ -39,6 +39,7 @@ const EditProduct = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const loggedUserId = sessionStorage.getItem('id')
         let updatedProduct = {
             title: product.title,
             description: product.description,
@@ -48,7 +49,7 @@ const EditProduct = () => {
             image: product.image,
             category: product.category,
             postedAt: new Date(Date.now()).toUTCString(),
-            owner: "655016da7569dcec6baa7951",
+            owner: loggedUserId,
         }
 
         update(product.id, updatedProduct).then(data => {
