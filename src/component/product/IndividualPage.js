@@ -25,7 +25,6 @@ const IndividualProduct = () => {
 
   useEffect(() => {
     findThreadByProductId(id).then((data) => {
-      console.log('ata.messages', data.messages)
       setQuestionArray(data.messages)
       setQuestionContent('')
     }).catch(err => {
@@ -53,8 +52,6 @@ const IndividualProduct = () => {
 
   const submitAnswer = async (questionId) => {
     const loggedUserId = sessionStorage.getItem('id')
-    console.log('loggedUserId', clearTimeout)
-    console.log('individualProduct.owner', individualProduct.owner)
     if (!loggedUserId || loggedUserId !== individualProduct.owner) {
       alert('You need to be signed in as the owner of the product to answer questions.')
       setAnswerTextboxVisible(0)

@@ -11,9 +11,7 @@ import UserModel from "../../datasource/userModel";
 
     useEffect(()=>{
         const id = sessionStorage.getItem('id');
-        console.log('id', id);
         read(id).then((data)=>{
-            console.log('data', data);
             if (data) {
                 setUser(new UserModel(
                     data.selectedUser.id,
