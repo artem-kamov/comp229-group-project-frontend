@@ -11,6 +11,7 @@ import ListProducts from './component/product/ListProducts';
 import NoPage from './pages/NoPage';
 import Registration from './component/auth/Register';
 import PrivateRoute from './component/auth/PrivateRoute';
+import IndividualProduct from './component/product/IndividualPage';
 
 function App() {
   return (
@@ -34,6 +35,11 @@ function App() {
           <Route path="/products/list" element={
             <PrivateRoute>
               <ListProducts />
+            </PrivateRoute>
+          }></Route>
+          <Route path="/products/detail/:id" element={
+            <PrivateRoute>
+              <IndividualProduct />
             </PrivateRoute>
           }></Route>
           <Route element={<NoPage />}></Route>
