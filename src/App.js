@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users/register" element={<Registration />} />
           <Route path="/users/signin" element={<Signin />} />
-          <Route path="/users/edit" element={
+          <Route path="/users/edit/:id" element={
             <PrivateRoute>
               <EditProfile />
             </PrivateRoute>

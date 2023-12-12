@@ -33,6 +33,14 @@ const getUsername = ()=>{
   return sessionStorage.getItem('username');
 }
 
+
+const getUserID= ()=>{
+  if (typeof window === "undefined") {
+    return false;
+  }
+  return sessionStorage.getItem('userID');
+}
+
 const clearJWT = ()=>{
   if (typeof window !== "undefined") {
     sessionStorage.removeItem('token');
@@ -40,4 +48,4 @@ const clearJWT = ()=>{
   }
 }
 
-export { authenticate, isAuthenticated, getToken, getUsername, clearJWT }
+export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserID }

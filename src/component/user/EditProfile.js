@@ -4,28 +4,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { read, update } from "../../datasource/api-user";
 import UserModel from "../../datasource/userModel";
+import {getUserID} from "../auth/auth-helper"
 
- const EditProfile = () => {
+const EditProfile = () => {
     let navigate =  useNavigate();
     let [user, setUser] =  useState(new UserModel());
-
-    useEffect(()=>{
-        const id = sessionStorage.getItem('id');
-        console.log('id', id);
-        read(id).then((data)=>{
-            console.log('data', data);
-            if (data) {
-                setUser(new UserModel(
-                    data.selectedUser.id,
-                    data.selectedUser.email,
-                    data.selectedUser.username,
-                    data.selectedUser.password,
-                    ));
-            }
+  
+    useEffect(() => {
+      const userId = getUserID();
+      console.log('userId', userId);
+      if (userId) {
+        read(userId).then((data) => {
+          console.log('data', data);
+          if (data) {
+            setUser(new UserModel(
+              data.selectedUser.id,
+              data.selectedUser.email,
+              data.selectedUser.username,
+              data.selectedUser.password,
+              
+            ));
+          }
         }).catch(err => {
-            alert(err.message);
-            console.log(err)
+          alert(err.message);
+          console.log(err)
         });
+      }
+
     }, []);
 
     const handleChange = (event) => {
