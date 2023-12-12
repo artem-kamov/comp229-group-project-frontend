@@ -84,7 +84,7 @@ import UserModel from "../../datasource/userModel";
                         <br />
                         <div className="form-group">
                             <label htmlFor="passwordTextField">Enter New Password</label>
-                            <input type="number" className="form-control"
+                            <input type="password" className="form-control"
                                 id="passwordTextField"
                                 placeholder=""
                                 name="password"
