@@ -50,6 +50,23 @@ const read = async (id) => {
     }
 }
 
+
+const listOne = async (id) => {
+    try {
+        let response = await fetch(apiURL + '/product/get/' + id, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + getToken()
+            },
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const update = async (id, item) => {
     try {
         let response = await fetch(apiURL + '/product/edit/' + id, {
@@ -83,4 +100,4 @@ const remove = async (id) => {
     }
 }
 
-export { list, create, read, update, remove }
+export { list, listOne, create, read, update, remove }

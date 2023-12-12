@@ -66,7 +66,11 @@ const ListProducts = () => {
                                 {productsList.map((product, i) => {
                                     return (
                                         <tr key={i}>
-                                            <td className="text-center">{product.title || ''}</td>
+                                            <td className="text-center">
+                                                <Link className="link-primary" to={'/products/detail/' + product.id}>
+                                                    {product.title}
+                                                </Link>
+                                            </td>
                                             <td className="text-center">{product.currency} {product.price}</td>
                                             <td className="text-center">{product.category || ''}</td>
                                             <td className="text-center">{product.location || ''}</td>
