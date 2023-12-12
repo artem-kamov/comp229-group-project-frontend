@@ -31,11 +31,7 @@ function App() {
               <EditProduct />
             </PrivateRoute>
           }></Route>
-          <Route path="/products/list" element={
-            <PrivateRoute>
-              <ListProducts />
-            </PrivateRoute>
-          }></Route>
+          <Route path="/products/list" element={<ListProducts /> }></Route>
           <Route element={<NoPage />}></Route>
         </Routes>
         <Footer />

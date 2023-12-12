@@ -1,6 +1,6 @@
 class ProductModel
 {
-    constructor(id, title, description, price, currency, location, image, category, postedAt, owner ){
+    constructor(id, title, description, price, currency, location, image, category, postedAt, owner, endDate ){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -11,6 +11,7 @@ class ProductModel
         this.category = category;
         this.postedAt = postedAt;
         this.owner = owner;
+        this.endDate = endDate;
     }
 }
 
