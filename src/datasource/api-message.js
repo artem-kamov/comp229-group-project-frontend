@@ -23,6 +23,20 @@ const postAnswer = async (message) => {
     }
   }
   
+const findThreadByProductId = async (productId) => {
+    try {
+        let response = await fetch(apiURL + '/messages/get-product-messages/' + productId, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 const postQuestion = async (message) => {
   try {
@@ -41,5 +55,5 @@ const postQuestion = async (message) => {
   }
 }
 
-export { postQuestion}
+export { postQuestion, findThreadByProductId, postAnswer}
 

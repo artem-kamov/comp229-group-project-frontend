@@ -2,40 +2,60 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { listOne } from "../../datasource/api-product";
 import MessageModel from "../../datasource/messageModel";
-import { postQuestion } from "../../datasource/api-message";
+import { postQuestion, findThreadByProductId, postAnswer } from "../../datasource/api-message";
 
 const IndividualProduct = () => {
   let [individualProduct, setIndividualProduct] = useState([]);
   let [questionContent, setQuestionContent] = useState(null);
   let [questionArray, setQuestionArray] = useState([]);
-  // let [isLoading, setIsLoading] = useState(true);
+  let [updateMessages, setUpdateMessages] = useState(false)
   let { id } = useParams();
 
   useEffect(() => {
     listOne(id).then((data) => {
-      console.log('product', data);
       setIndividualProduct(data.selectedProduct)
     }).catch(err => {
       alert(err.message);
       console.log(err);
     });
-  }, []);
-  
+  }, [id]);
+
 
   useEffect(() => {
-    listOne(id).then((data) => {
-      setIndividualProduct(data.selectedProduct)
+    findThreadByProductId(id).then((data) => {
+      setQuestionArray(data.messages)
     }).catch(err => {
       alert(err.message);
       console.log(err);
     });
-  }, []);
+  }, [updateMessages, id]);
 
-  const submitQuestion= async () => {
-    const newMessage = new MessageModel('question', questionContent, null, individualProduct.id) //author id missing
+  const submitQuestion = async () => {
+    const id = localStorage.getItem('id')
+    const newMessage = new MessageModel('question', questionContent, id, individualProduct.id) //author id missing
 
     try {
       const response = await postQuestion(newMessage);
+      if (response.success) {
+        setUpdateMessages(!updateMessages);
+      }
+
+
+    } catch (err) {
+      alert('Error sending message')
+    }
+
+  }
+
+  const submitAnswer = async (questionId) => {
+    const id = localStorage.getItem('id');
+    const newMessage = new MessageModel('answer', questionContent, id, null, questionId)
+
+    try {
+      const response = await postAnswer(newMessage);
+      if (response.success) {
+        setUpdateMessages(!updateMessages);
+      }
 
 
     } catch (err) {
@@ -87,11 +107,35 @@ const IndividualProduct = () => {
         </button>
       </div>
       <>
-      <div className="row">
-        {questionArray.map((elem) => { 
-          return elem
+
+        {questionArray.map((elem, index) => {
+          if (elem.answerId) {
+            return (
+              <>
+
+                <div className="col-md-6 ps-3 pt-3 pb-3 text-start" style={{ fontWeight: 'bold' }}>
+                  {index + 1 + '. ' + elem.content}
+                </div>
+                <div className="col-md-6 ps-5 pt-1 pb-1 text-start" >
+                  {index + 1 + '. ' + elem.content}
+                </div>
+              </>)
+          } else {
+            return (
+              <div className="row">
+                <div className="col-md-6 ps-3 pt-3 pb-3 text-start" style={{ fontWeight: 'bold' }}>
+                  {index + 1 + '. ' + elem.content}
+                </div>
+                <div className="col-md-6 ps-3 pt-3 pb-3 text-end" style={{ fontWeight: 'bold' }}>
+                  <button className="btn btn-primary" type="submit" style={{ marginRight: "10px" }} onClick={() => submitAnswer(elem.id)}>
+                    <i className="fas fa-edit"></i> Answer this question
+                  </button>
+                </div>
+              </div>)
+          }
+
+
         })}
-      </div>
       </>
     </main>
   );

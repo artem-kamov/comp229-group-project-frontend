@@ -39,14 +39,12 @@ function App() {
             </PrivateRoute>
           }></Route>
           <Route path="/products/list" element={
-            <PrivateRoute>
-              <ListProducts />
-            </PrivateRoute>
+            <ListProducts />
           }></Route>
           <Route path="/products/detail/:id" element={
-            <PrivateRoute>
-              <IndividualProduct />
-            </PrivateRoute>
+
+            <IndividualProduct />
+
           }></Route>
           <Route element={<NoPage />}></Route>
         </Routes>
