@@ -42,9 +42,7 @@ function App() {
             <ListProducts />
           }></Route>
           <Route path="/products/detail/:id" element={
-
             <IndividualProduct />
-
           }></Route>
           <Route element={<NoPage />}></Route>
         </Routes>
