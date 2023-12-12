@@ -50,7 +50,7 @@ const register = async (user) => {
 
 const read = async (id) => {
     try {
-        let response = await fetch(apiUrl + '/user/get/' + id, {
+        let response = await fetch(apiUrl + '/users/get/' + id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +66,7 @@ const read = async (id) => {
 
 const update = async (id, item) => {
     try {
-        let response = await fetch(apiUrl + 'user/edit/' + id, {
+        let response = await fetch(apiUrl + '/users/edit/' + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
