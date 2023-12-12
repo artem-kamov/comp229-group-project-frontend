@@ -86,11 +86,6 @@ const IndividualProduct = () => {
         <div className="col-md-12">
           <h2>Q&A</h2>
         </div>
-        {/* <div className="col-md-6">
-          <button className="btn btn-primary" type="submit" style={{ marginRight: "10px" }}>
-            <i className="fas fa-edit"></i> Ask a question
-          </button>
-        </div> */}
       </div>
       <div className="input-group mb-3">
         <input

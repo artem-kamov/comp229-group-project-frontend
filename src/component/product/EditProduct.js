@@ -14,16 +14,16 @@ const EditProduct = () => {
         read(id).then((data) => {
             if (data) {
                 setProduct(new ProductModel(
-                    data.selectedProduct[0].id,
-                    data.selectedProduct[0].title,
-                    data.selectedProduct[0].description,
-                    data.selectedProduct[0].price,
-                    data.selectedProduct[0].currency,
-                    data.selectedProduct[0].location,
-                    data.selectedProduct[0].image,
-                    data.selectedProduct[0].category,
-                    data.selectedProduct[0].postedAt,
-                    data.selectedProduct[0].owner,
+                    data.selectedProduct.id,
+                    data.selectedProduct.title,
+                    data.selectedProduct.description,
+                    data.selectedProduct.price,
+                    data.selectedProduct.currency,
+                    data.selectedProduct.location,
+                    data.selectedProduct.image,
+                    data.selectedProduct.category,
+                    data.selectedProduct.postedAt,
+                    data.selectedProduct.owner,
                 ));
             }
         }).catch(err => {

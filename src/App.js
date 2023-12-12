@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users/register" element={<Registration />} />
           <Route path="/users/signin" element={<Signin />} />
-          <Route path="/users/list" element={
+          <Route path="/users/edit" element={
             <PrivateRoute>
               <EditProfile />
             </PrivateRoute>

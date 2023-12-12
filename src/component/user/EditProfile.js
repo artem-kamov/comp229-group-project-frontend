@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { read, update } from "../../datasource/api-user";
@@ -7,17 +7,19 @@ import UserModel from "../../datasource/userModel";
 
  const EditProfile = () => {
     let navigate =  useNavigate();
-    let { id } = useParams();
     let [user, setUser] =  useState(new UserModel());
 
     useEffect(()=>{
+        const id = sessionStorage.getItem('id');
+        console.log('id', id);
         read(id).then((data)=>{
+            console.log('data', data);
             if (data) {
                 setUser(new UserModel(
-                    data.selectedUser[0].id,
-                    data.selectedUser[0].email,
-                    data.selectedUser[0].username,
-                    data.selectedUser[0].password,
+                    data.selectedUser.id,
+                    data.selectedUser.email,
+                    data.selectedUser.username,
+                    data.selectedUser.password,
                     ));
             }
         }).catch(err => {

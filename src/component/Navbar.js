@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faBarcode, faUser, faSquarePlus, faHouseUser, faRightToBracket, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { faRegularRectangleList } from '@fortawesome/free-regular-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -64,7 +63,7 @@ const Navbar = () => {
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
-                                    <Link className="dropdown-item" to="/users/list">
+                                    <Link className="dropdown-item" to="/users/edit">
                                         <i className="fa-solid fa-square-plus"></i> Edit Profile
                                     </Link>
                                 </li>
