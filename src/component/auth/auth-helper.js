@@ -38,7 +38,7 @@ const getUserID= ()=>{
   if (typeof window === "undefined") {
     return false;
   }
-  return sessionStorage.getItem('userID');
+  return sessionStorage.getItem('id');
 }
 
 const clearJWT = ()=>{

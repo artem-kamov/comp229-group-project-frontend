@@ -2,34 +2,30 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUndo } from '@fortawesome/free-solid-svg-icons';
-import { read, update } from "../../datasource/api-user";
+import { read, signin, update } from "../../datasource/api-user";
 import UserModel from "../../datasource/userModel";
-import {getUserID} from "../auth/auth-helper"
+import { authenticate, getUserID } from "../auth/auth-helper"
 
 const EditProfile = () => {
-    let navigate =  useNavigate();
-    let [user, setUser] =  useState(new UserModel());
-  
+    let navigate = useNavigate();
+    let [user, setUser] = useState(new UserModel());
+
     useEffect(() => {
-      const userId = getUserID();
-      console.log('userId', userId);
-      if (userId) {
-        read(userId).then((data) => {
-          console.log('data', data);
-          if (data) {
-            setUser(new UserModel(
-              data.selectedUser.id,
-              data.selectedUser.email,
-              data.selectedUser.username,
-              data.selectedUser.password,
-              
-            ));
-          }
-        }).catch(err => {
-          alert(err.message);
-          console.log(err)
-        });
-      }
+        const userId = getUserID();
+        if (userId) {
+            read(userId).then((data) => {
+                if (data) {
+                    setUser(new UserModel(
+                        data.id,
+                        data.email,
+                        data.username,
+                    ));
+                }
+            }).catch(err => {
+                alert(err.message);
+                console.log(err)
+            });
+        }
 
     }, []);
 
@@ -48,6 +44,19 @@ const EditProfile = () => {
 
         update(user.id, updatedUser).then(data => {
             if (data && data.success) {
+                signin({
+                    email: user.email,
+                    password: user.password,
+                }).then((data) => {
+                        if (data && data.success) {
+                            authenticate(data.token, ()=>{});
+                        }
+                    })
+                    .catch(err => {
+                        alert('Error on updating user in session storage')
+                        console.log(err);
+                    });
+
                 alert(data.message);
                 navigate("/products/list");
             }
@@ -102,14 +111,14 @@ const EditProfile = () => {
                         </div>
                         <br />
                         <button className="btn btn-primary" type="submit">
-    <FontAwesomeIcon icon={faEdit} />
-    Submit
-</button>
+                            <FontAwesomeIcon icon={faEdit} />
+                            Submit
+                        </button>
 
-<Link href="#" to="/products/list" className="btn btn-warning">
-    <FontAwesomeIcon icon={faUndo} />
-    Cancel
-</Link>
+                        <Link href="#" to="/products/list" className="btn btn-warning">
+                            <FontAwesomeIcon icon={faUndo} />
+                            Cancel
+                        </Link>
 
                     </form>
                 </div>
