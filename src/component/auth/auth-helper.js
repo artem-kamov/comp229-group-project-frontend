@@ -37,6 +37,7 @@ const clearJWT = ()=>{
   if (typeof window !== "undefined") {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('username');
+    sessionStorage.removeItem('id');
   }
 }
 

@@ -21,6 +21,11 @@ const ListProducts = () => {
     }, []);
 
     const handleRemove = (id) => {
+        const loggedUserId = sessionStorage.getItem('id')
+        if (!loggedUserId) {
+            window.location.href = '/users/signin';
+            return;
+        }
         if (window.confirm('Are you sure you want to delete this item?')) {
             remove(id).then(data => {
                 if (data && data.success) {

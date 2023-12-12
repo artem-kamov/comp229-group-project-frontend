@@ -32,8 +32,9 @@ const AddProduct = () => {
 
     create(newProduct, imageFile)
       .then((data) => {
+        console.log('this is data', data);
         if (data && data.result.id) {
-          alert("Item added with the id " + data.id);
+          alert("Item added with the id " + data.result.id);
           navigate("/products/list");
         } else {
           alert(data.message);
